@@ -7,3 +7,11 @@ GET     /                           controllers.Application.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
+
+
+# Insumos
+GET     /api/insumos/               controllers.Insumos.all()
+GET     /api/insumos/:id            controllers.Insumos.get(id: Long)
+POST    /api/insumos/               controllers.Insumos.create()
+PUT     /api/insumos/:id            controllers.Insumos.edit(id: Long)
+DELETE  /api/insumos/:id            controllers.Insumos.delete(id: Long)
