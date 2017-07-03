@@ -1,0 +1,16 @@
+<a ui-sref="newInsumo" class="btn-primary btn-lg nodecoration">Add New Insumo</a>
+<table class="table insumotable">
+    <tr>
+        <td><h3>Insumos</h3></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="insumo in insumos">
+        <td>{{insumo.id}}</td>
+        <td>{{insumo.nombre}}</td>
+        <td>{{insumo.stock}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewInsumo({id:insumo.id})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteInsumo(insumo)">Delete</a>
+        </td>
+    </tr>
+</table>

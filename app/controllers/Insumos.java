@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import com.avaje.ebean.Ebean;
@@ -10,9 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import java.util.List;
 import models.Insumo;
-import play.libs.Json;
+import play.*;
 import play.mvc.*;
-
+import play.libs.Json;
+import views.html.*;
 
 /**
  *
@@ -30,8 +26,7 @@ public class Insumos extends Controller {
     public static Result create() {
         JsonNode json = request().body().asJson();
         String nombre = json.findPath("nombre").textValue();
-        Integer stock = 0;
-        stock = json.findPath("stock").intValue();
+        Integer stock = Integer.parseInt(json.findPath("stock").textValue());
         if(nombre == null) {
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
@@ -56,8 +51,7 @@ public class Insumos extends Controller {
         Insumo insumo = Insumo.find.byId(id);
         JsonNode json = request().body().asJson();
         String nombre = json.findPath("nombre").textValue();
-        Integer stock = 0;
-        stock = json.findPath("stock").intValue();
+        Integer stock = Integer.parseInt(json.findPath("stock").textValue());
         if(nombre == null) {
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
