@@ -37,9 +37,8 @@ public class Ventas extends Controller {
             result.put("status", "KO");
             return badRequest(result);
         }
-
-        Venta venta = new Venta(comprador, cantidad, producto);
         
+        Venta venta = new Venta(comprador, cantidad, producto);
         Ebean.save(venta);
         return ok(Json.toJson(venta));
     }
