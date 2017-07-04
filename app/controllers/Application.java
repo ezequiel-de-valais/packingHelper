@@ -20,4 +20,9 @@ public class Application extends Controller {
         Content html = productos.render();
         return ok(html);
     }
+    
+    public static Result ventas() {
+        Content html = ventas.render();
+        return ok(html);
+    }
 }
