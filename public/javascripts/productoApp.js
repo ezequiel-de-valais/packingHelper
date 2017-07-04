@@ -1,0 +1,23 @@
+angular.module('productoApp',['ui.router','ngResource','productoApp.controllers','productoApp.services','insumoApp.services']);
+
+angular.module('productoApp').config(function($stateProvider,$httpProvider){
+    $stateProvider.state('productos',{
+        url:'/productos',
+        templateUrl:'assets/partials/producto/productos.html',
+        controller:'ProductoListController'
+    }).state('viewProducto',{
+       url:'/productos/:id/view',
+       templateUrl:'assets/partials/producto/producto-view.html',
+       controller:'ProductoViewController'
+    }).state('newProducto',{
+        url:'/productos/new',
+        templateUrl:'assets/partials/producto/producto-add.html',
+        controller:'ProductoCreateController'
+    }).state('editProducto',{
+        url:'/productos/:id/edit',
+        templateUrl:'assets/partials/producto/producto-edit.html',
+        controller:'ProductoEditController'
+    });
+}).run(function($state){
+   $state.go('productos');
+});

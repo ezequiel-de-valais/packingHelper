@@ -1,0 +1,18 @@
+<a ui-sref="newProducto" class="btn-primary btn-lg nodecoration">Add New Producto</a>
+<table class="table productotable">
+    <tr>
+        <td><h3>Productos</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="producto in productos">
+        <td>{{producto.id}}</td>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.desripcion}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewProducto({id:producto.id})">View</a>
+            <a class="btn btn-danger"  ng-click="deleteProducto(producto)">Delete</a>
+        </td>
+    </tr>
+</table>

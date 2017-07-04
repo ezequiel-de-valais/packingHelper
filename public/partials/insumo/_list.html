@@ -1,4 +1,3 @@
-<a ui-sref="newInsumo" class="btn-primary btn-lg nodecoration">Add New Insumo</a>
 <table class="table insumotable">
     <tr>
         <td><h3>Insumos</h3></td>
@@ -11,8 +10,9 @@
         <td>{{insumo.nombre}}</td>
         <td>{{insumo.stock}}</td>
         <td>
-            <a class="btn btn-primary" ui-sref="viewInsumo({id:insumo.id})">View</a>
-            <a class="btn btn-danger"  ng-click="deleteInsumo(insumo)">Delete</a>
+            <input type="checkbox" ng-change="sync(bool, insumo)" ng-model="bool" ng-checked="isChecked(insumo.id)"/>
         </td>
     </tr>
+    <!--<div>{{insumos | json}}</div>
+    <div>{{producto | json}}</div> -->
 </table>

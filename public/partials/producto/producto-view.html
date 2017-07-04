@@ -1,0 +1,17 @@
+<table class="table productotable">
+    <tr>
+        <td><h3>Details for {{producto.nombre}}</h3></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Producto Nombre</td>
+        <td>{{producto.nombre}}</td>
+    </tr>
+    <tr>
+        <td>Descripcion</td>
+        <td>{{producto.descripcion}}</td>
+    </tr>
+</table>
+<div>
+    <a class="btn btn-primary" ui-sref="editProducto({id:producto.id})">Edit</a>
+</div>
