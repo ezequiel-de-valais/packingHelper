@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import javax.persistence.*;
 
@@ -22,6 +23,7 @@ public class Producto extends Model {
   public String descripcion;
   
   @ManyToMany
+  @JsonManagedReference
   public List<Insumo> insumos;
 
   @OneToMany(mappedBy="producto")

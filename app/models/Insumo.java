@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import javax.persistence.*;
 
@@ -21,6 +22,7 @@ public class Insumo extends Model {
   public Integer stock;
   
   @ManyToMany(mappedBy = "insumos")
+  @JsonBackReference
   public List<Producto> productos;
   
   public static Finder<Long,Insumo> find = new Finder<Long,Insumo>(
