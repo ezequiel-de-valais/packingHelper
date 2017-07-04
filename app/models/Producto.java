@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
 import javax.persistence.*;
+import static javax.persistence.CascadeType.REMOVE;
 
 import play.db.ebean.*;
 import play.data.validation.*;
@@ -22,7 +23,7 @@ public class Producto extends Model {
   @Constraints.Max(500)
   public String descripcion;
   
-  @ManyToMany
+  @ManyToMany(cascade=REMOVE)
   @JsonManagedReference
   public List<Insumo> insumos;
 

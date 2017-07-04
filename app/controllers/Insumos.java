@@ -68,7 +68,7 @@ public class Insumos extends Controller {
     public static Result delete(Long id) {
         Insumo insumo = Insumo.find.byId(id);
         ObjectNode result = Json.newObject();
-        if(insumo.id == null) {
+        if(insumo.id == null || insumo.productos.size() > 0) {
             result.put("status", "KO");
             return badRequest(result);
         }

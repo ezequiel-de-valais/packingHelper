@@ -42,7 +42,7 @@ public class Productos extends Controller {
         
         for (int i = 0; i < insumosNode.size(); i++) {
           Long insumoId = insumosNode.get(i).longValue();
-          Insumo insumo = Insumo.find.byId(insumoId*100);
+          Insumo insumo = Insumo.find.byId(insumoId);
           if(insumo.id == null) {
             result.put("status", "KO");
             result.put("message", "Missing parameter");
