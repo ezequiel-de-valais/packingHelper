@@ -23,3 +23,8 @@ GET     /api/productos/:id          controllers.Productos.get(id: Long)
 POST    /api/productos              controllers.Productos.create()
 PUT     /api/productos/:id          controllers.Productos.edit(id: Long)
 DELETE  /api/productos/:id          controllers.Productos.delete(id: Long)
+
+# Ventas
+GET     /api/ventas                 controllers.Ventas.all()
+GET     /api/ventas/:id             controllers.Ventas.get(id: Long)
+POST    /api/ventas                 controllers.Ventas.create()

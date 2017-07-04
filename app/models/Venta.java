@@ -16,8 +16,11 @@ public class Venta extends Model {
   @Constraints.Required
   public String comprador;
   
-  @ManyToOne(optional=false)
-  public Producto producto;
+  @Constraints.Required
+  public Long itemProductoId;
+  
+  @Constraints.Required
+  public String itemNombre;
   
   @Constraints.Required
   @Constraints.Min(1)
@@ -25,5 +28,13 @@ public class Venta extends Model {
   
   public static Finder<Long,Venta> find = new Finder<Long,Venta>(
     Long.class, Venta.class
-  ); 
+  );
+
+  public Venta(String aComprador, Integer aCantidad, Producto aProducto) {
+    comprador = aComprador;
+    cantidad = aCantidad;
+    itemProductoId = aProducto.id;
+    itemNombre = aProducto.nombre;
+  }
+  
 }

@@ -20,7 +20,8 @@ create table producto (
 create table venta (
   id                        bigint not null,
   comprador                 varchar(255),
-  producto_id               bigint not null,
+  item_producto_id          bigint,
+  item_nombre               varchar(255),
   cantidad                  integer,
   constraint pk_venta primary key (id))
 ;
@@ -37,8 +38,6 @@ create sequence producto_seq;
 
 create sequence venta_seq;
 
-alter table venta add constraint fk_venta_producto_1 foreign key (producto_id) references producto (id) on delete restrict on update restrict;
-create index ix_venta_producto_1 on venta (producto_id);
 
 
 

@@ -27,9 +27,6 @@ public class Producto extends Model {
   @JsonManagedReference
   public List<Insumo> insumos;
 
-  @OneToMany(mappedBy="producto")
-  List<Venta> ventas;
-  
   public static Finder<Long,Producto> find = new Finder<Long,Producto>(
     Long.class, Producto.class
   ); 
