@@ -10,9 +10,11 @@ angular.module('productoApp.controllers',[]).controller('ProductoListController'
         }
     }
 
-}).controller('ProductoViewController',function($scope,$stateParams,Producto){
-
-    $scope.producto=Producto.get({id:$stateParams.id});
+}).controller('ProductoViewController',function($scope,$stateParams,$timeout,Producto){
+    $scope.producto = Producto.get({id:$stateParams.id}, function(producto){
+         $scope.insumos = producto.insumos;
+    });
+   
 
 }).controller('ProductoCreateController',function($scope,$state,$stateParams,Producto,Insumo){
 

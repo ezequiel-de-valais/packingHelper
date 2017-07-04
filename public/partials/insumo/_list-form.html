@@ -9,5 +9,10 @@
         <td>{{insumo.id}}</td>
         <td>{{insumo.nombre}}</td>
         <td>{{insumo.stock}}</td>
+        <td>
+            <input type="checkbox" ng-change="sync(bool, insumo)" ng-model="bool" ng-checked="isChecked(insumo.id)"/>
+        </td>
     </tr>
+    <!--<div>{{insumos | json}}</div>
+    <div>{{producto | json}}</div> -->
 </table>
