@@ -1,0 +1,16 @@
+<table class="table productotable">
+    <tr>
+        <td><h3>Productos</h3></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="producto in productos">
+        <td>{{producto.id}}</td>
+        <td>{{producto.nombre}}</td>
+        <td>
+            <input type="radio" id="{{producto.id}}" name="producto"  ng-model="selectedProducto.id" value="{{producto.id}}"/>
+        </td>
+    </tr>
+</table>
+<div>{{venta | json}}</div>
+<div>{{selectedProducto | json}}</div>

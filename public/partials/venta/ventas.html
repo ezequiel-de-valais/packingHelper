@@ -1,0 +1,19 @@
+<a ui-sref="newVenta" class="btn-primary btn-lg nodecoration">Add New Venta</a>
+<table class="table ventatable">
+    <tr>
+        <td><h3>Ventas</h3></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="venta in ventas">
+        <td>{{venta.id}}</td>
+        <td>{{venta.comprador}}</td>
+        <td>{{venta.itemNombre}}</td>
+        <td>{{venta.cantidad}}</td>
+        <td>
+            <a class="btn btn-primary" ui-sref="viewVenta({id:venta.id})">View</a>
+        </td>
+    </tr>
+</table>

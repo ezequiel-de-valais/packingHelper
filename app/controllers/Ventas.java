@@ -28,8 +28,8 @@ public class Ventas extends Controller {
     public static Result create() {
         JsonNode json = request().body().asJson();
         String comprador = json.findPath("comprador").textValue();
-        Long productoId = json.findPath("producto").longValue();
-        Integer cantidad = json.findPath("cantidad").intValue();
+        Long productoId = Long.parseLong(json.findPath("producto").textValue());
+        Integer cantidad = Integer.parseInt(json.findPath("cantidad").textValue());
         Producto producto = Producto.find.byId(productoId);
         
         if(comprador == null || producto == null || cantidad < 1) {

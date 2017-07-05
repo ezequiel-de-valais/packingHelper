@@ -1,0 +1,19 @@
+angular.module('ventaApp',['ui.router','ngResource','ventaApp.controllers','ventaApp.services','productoApp.services']);
+
+angular.module('ventaApp').config(function($stateProvider,$httpProvider){
+    $stateProvider.state('ventas',{
+        url:'/ventas',
+        templateUrl:'assets/partials/venta/ventas.html',
+        controller:'VentaListController'
+    }).state('viewVenta',{
+       url:'/ventas/:id/view',
+       templateUrl:'assets/partials/venta/venta-view.html',
+       controller:'VentaViewController'
+    }).state('newVenta',{
+        url:'/ventas/new',
+        templateUrl:'assets/partials/venta/venta-add.html',
+        controller:'VentaCreateController'
+    });
+}).run(function($state){
+   $state.go('ventas');
+});

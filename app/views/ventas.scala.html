@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 
-<html data-ng-app="ventasApp">
+<html data-ng-app="ventaApp">
     <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
-        <base href="/"/>
+        <base href="/ventas"/>
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/bootstrap.min.css")"/>
         <link rel="stylesheet" type="text/css" href="@routes.Assets.at("stylesheets/app.css")"/>
     </head>
@@ -30,13 +30,12 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
-        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.js"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/app.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/controllers.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/services.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/directives.js")"></script>
-        <script type="text/javascript" src="@routes.Assets.at("javascripts/filters.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/lib/angular.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/lib/angular-ui-router.min.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/lib/angular-resource.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/ventaApp.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/ventaControllers.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/ventaServices.js")"></script>
+        <script type="text/javascript" src="@routes.Assets.at("javascripts/productoServices.js")"></script>
     </body>
 </html>
