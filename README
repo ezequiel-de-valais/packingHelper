@@ -1,4 +1,39 @@
-This is your new Play application
-=====================================
+Aclaraciones del modelo.
 
-This file will be packaged with your application, when using `play dist`.
+La venta se puede resolver de varias maneras. La manera mas sencilla es relacionar una venta directamente a un producto.
+Pero esto posee un inconveniente. El producto puede ser borrado o modificado lo cual afecta el estado de nuestra venta.
+Por lo tanto nuestra venta se va a asociar a ítems y no productos.
+En caso de tener mas ítems por venta crearía esta entidad por separado la cual se relacionaría directamente a una venta y no se modificaría al editarse el producto. Puesto que tenemos un solo producto por venta solo voy a guardar en la venta el nombre y el id del producto del cual deriva el ítem.
+Si lo esperado para el ejercicio era utilizar una relación directa a productos lo que hice en un inicio fue generar una relación UnoAMuchos entre Producto y Venta.
+
+Aclaraciones vistas
+
+Esto es un poco mas complicado de acomodar puesto que es mi primera vez tanto con play como con angular.
+La app esta separada en 3 vistas de play. En principio queda pendiente refactorizarlas para que reutilicen las estructuras en común(header, css, js, etc). Por otro lado, cada vista instancia una aplicación angular y posiblemente hay cosas que se puedan mejorar. El frontend se podría resolver con una única vista con una sola app angular y que el router se encargue de solucionar el resto.
+
+Preguntas
+● Considerar la posibilidad de que varios usuarios estén realizando al mismo tiempo acciones sobre las mismas tablas. Caso de ejemplo: Producto A necesita el Insumo 1 e Insumo 2, en stock quedan uno de cada insumo. ¿Como salvaguardar el caso en que dos vendedores intentan vender al mismo tiempo un Producto A?
+
+En principio esto se puede resolver con transacciones sql o con locks de las tablas. De esta forma no hay riesgo de que que haya una actualización del stock por otro.
+Otra posibilidad es que el intento de orden se agregue a una cola y un proceso aparte se encargue de atenderlas 1 a 1.
+
+● Cómo implementarías la cancelación de una venta.
+Para esto me gustaría utilizar estados en la venta para identificar si fue o no cancelada.
+Si consideramos que la cancelación de una venta implica la recuperación de los insumos, es un poco mas complejo y necesitamos mas información.
+Si los insumos a reintegrar son los mismos que aquellos al momento de realizar la compra se debe guardar, aparte de los items, los insumos por los cuales estaba constituido.
+Hay varios casos posibles y dependen de que signifique exactamente la modificación de los productos y la modificación de los insumos.
+
+● Cómo indicarías en rojo los items que estan sin stock.
+Para poder obtener los productos con stock la manera sencilla, pero menos performante, seria calcular por cada producto el stock.
+Para realizar algo que funcione mejor podemos aprovechar que los insumos de un producto deben tener por lo menos 1 unidad de stock. se podria primero realizar una query de todos los insumos con cantidad 0, y  luego otra para obtener todos los productos que contengan alguna de esas entidades. estos son los productos que deben ir en rojo.
+
+● Qué tests realizarías sobre está aplicación? Mencionarlos.
+Me gustaria realizar varios tipos de tests
+_para el modelo backend:
+  probar las reglas de negocio(descripcion < 500,  por lo menos un insumo en el producto, creacion de ventas con 1 producto, no poder borrar insumos con productos asociados, etc)
+_tests a controllers: pruebas de request sobre los controllers. No solamente para asegurar su correcto funcionamiento, sino tambien utiles como documentacion del codigo
+_tests sobre la vista: Haciendo foco en probar que los diferentes flujos están funcionando bien (ej: borrar un producto lo saca de la lista, al agregar producto este se puede visualizar en el lugar que corresponde, etc)
+
+● Cómo agregarías autenticación y autorización básicas a esta aplicación?
+Depende de las necesidades que tenga el sistema en particular. Si lo que se quiere son usuarios que pueda acceder a las vistas para realizar ABM de las distintas entidades se puede crear un entidad Usuario que posea nombre, contraseña con su respectiva tabla. Que luego se requiera inicio de sesión validando los datos de algún usuario y post validación generar un token con expiración que se guarde en cookies. Este debería ser chequeado en los diferentes controladores.
+Esto es un ejemplo sencillo y reitero que depende de lo que se necesite.
