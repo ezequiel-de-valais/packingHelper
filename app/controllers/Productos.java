@@ -4,6 +4,7 @@ import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.ArrayList;
 import java.util.List;
 import models.Insumo;
 import models.Producto;
@@ -76,18 +77,19 @@ public class Productos extends Controller {
         }
         producto.nombre = nombre;
         producto.descripcion = descripcion;
+        List<Insumo> insumos = new ArrayList();
         
         for (int i = 0; i < insumosNode.size(); i++) {
           Long insumoId = insumosNode.get(i).longValue();
-          Insumo insumo = Insumo.find.byId(insumoId*100);
+          Insumo insumo = Insumo.find.byId(insumoId);
           if(insumo.id == null) {
             result.put("status", "KO");
             result.put("message", "Missing parameter");
             return badRequest(result);
           }
-          producto.insumos.add(insumo);
+          insumos.add(insumo);        
         }
-
+        producto.insumos = insumos;
         Ebean.save(producto);
         return ok(Json.toJson(producto));
     }
