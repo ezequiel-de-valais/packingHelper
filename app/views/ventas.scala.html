@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html data-ng-app="insumoApp">
+<html data-ng-app="ventasApp">
     <head>
         <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.css")">
         <link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
@@ -12,11 +12,13 @@
         <nav class="navbar navbar-default" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" ui-sref="insumos">Empresa</a>
+                    <a class="navbar-brand" href="/">Empresa</a>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a ui-sref="productos">productos</a></li>
+                        <li><a href="/insumos/">Insumos</a></li>
+                        <li><a href="/productos/">Productos</a></li>
+                        <li><a href="/ventas/">Ventas</a></li>
                     </ul>
                 </div>
             </div>
