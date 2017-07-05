@@ -30,8 +30,31 @@ public class Insumo extends Model {
     Long.class, Insumo.class
   ); 
 
+    public Insumo(String aNombre, Integer aStock) throws Exception {
+        validateData(aNombre, aStock);
+        nombre = aNombre;
+        stock = aStock;
+        Ebean.save(this);
+    }
+
     void reduceStock(Integer aCantidad) {
         stock -= aCantidad;
+        Ebean.save(this);
+    }
+
+    private void validateData(String aNombre, Integer aStock) throws Exception {
+        if(aNombre == null){
+            throw new Exception("nombre incorrecto");
+        }
+        if(aStock == null || aStock < 0){
+            throw new Exception("stock incorrecto");
+        }
+    }
+    
+    public void updateInsumo(String aNombre, Integer aStock) throws Exception {
+        validateData(aNombre, aStock);
+        nombre = aNombre;
+        stock = aStock;
         Ebean.save(this);
     }
 

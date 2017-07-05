@@ -16,10 +16,14 @@ angular.module('ventaApp.controllers',[]).controller('VentaListController',funct
         $scope.selectedProducto.id = productos[0].id.toString();
     });
     $scope.addVenta=function(){
-        $scope.venta.producto = $scope.selectedProducto.id;
-        $scope.venta.$save(function(){
-            $state.go('ventas');
-        }, function(response){console.log(response);alert(response.data.message)});
+        if($scope.selectedProducto.id){
+            $scope.venta.producto = $scope.selectedProducto.id;
+            $scope.venta.$save(function(){
+                $state.go('ventas');
+            }, function(response){console.log(response);alert(response.data.message)});
+        }else{
+            alert("debes seleccionar un producto");
+        }
     }
 
 });

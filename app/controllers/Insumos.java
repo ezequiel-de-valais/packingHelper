@@ -25,19 +25,17 @@ public class Insumos extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result create() {
         JsonNode json = request().body().asJson();
-        String nombre = json.findPath("nombre").textValue();
-        Integer stock = json.findPath("stock").intValue();
-        if(nombre == null) {
+        try{
+            String nombre = json.findPath("nombre").textValue();
+            Integer stock = json.findPath("stock").intValue();
+            Insumo insumo = new Insumo(nombre, stock);
+            return ok(Json.toJson(insumo));
+        }catch(Exception e){
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
-            result.put("message", "Missing parameter");
+            result.put("message", e.getClass().getName());
             return badRequest(result);
         }
-        Insumo insumo = new Insumo();
-        insumo.nombre = nombre;
-        insumo.stock = stock;
-        Ebean.save(insumo);
-        return ok(Json.toJson(insumo));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -50,18 +48,17 @@ public class Insumos extends Controller {
     public static Result edit(Long id) {
         Insumo insumo = Insumo.find.byId(id);
         JsonNode json = request().body().asJson();
-        String nombre = json.findPath("nombre").textValue();
-        Integer stock = json.findPath("stock").intValue();
-        if(nombre == null) {
+        try{
+            String nombre = json.findPath("nombre").textValue();
+            Integer stock = json.findPath("stock").intValue();
+            insumo.updateInsumo(nombre, stock);
+            return ok(Json.toJson(insumo));
+        }catch(Exception e){
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
-            result.put("message", "Missing parameter");
+            result.put("message", e.getMessage());
             return badRequest(result);
         }
-        insumo.nombre = nombre;
-        insumo.stock = stock;
-        Ebean.save(insumo);
-        return ok(Json.toJson(insumo));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
