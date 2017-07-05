@@ -54,7 +54,7 @@ angular.module('productoApp.controllers',[]).controller('ProductoListController'
         } else {
             alert("Seleccione por lo menos 1 insumo");
         }
-    }
+    };
 
 }).controller('ProductoEditController',function($scope,$state,$stateParams,Producto, Insumo){
 

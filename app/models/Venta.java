@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import java.util.List;
 import javax.persistence.*;
 
@@ -48,6 +49,7 @@ public class Venta extends Model {
     cantidad = aCantidad;
     itemProductoId = aProducto.id;
     itemNombre = aProducto.nombre;
+    Ebean.save(this);
   }
   
 }

@@ -30,10 +30,9 @@ public class Ventas extends Controller {
         try{
             String comprador = json.findPath("comprador").textValue();
             Long productoId = Long.parseLong(json.findPath("producto").textValue());
-            Integer cantidad = Integer.parseInt(json.findPath("cantidad").textValue());
+            Integer cantidad = json.findPath("cantidad").intValue();
             Producto producto = Producto.find.byId(productoId);
-            Venta venta = new Venta(comprador, cantidad, producto);        
-            Ebean.save(venta);
+            Venta venta = new Venta(comprador, cantidad, producto);
             return ok(Json.toJson(venta));
         }catch(Exception e){       
             ObjectNode result = Json.newObject();
