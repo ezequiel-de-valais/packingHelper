@@ -30,7 +30,20 @@ public class Venta extends Model {
     Long.class, Venta.class
   );
 
-  public Venta(String aComprador, Integer aCantidad, Producto aProducto) {
+  public Venta(String aComprador, Integer aCantidad, Producto aProducto) throws Exception {
+    if(aComprador == null){
+        throw new Exception("comprador incorrecto");
+    }
+    if(aProducto == null){
+        throw new Exception("producto incorrecto");
+    } 
+    if(aCantidad < 1) {
+        throw new Exception("cantidad incorrecta");
+    }
+    if(aProducto.calculateStock() < aCantidad) {
+        throw new Exception("elstock del producto es insuficiente");
+    }
+    aProducto.reduceStock(aCantidad);
     comprador = aComprador;
     cantidad = aCantidad;
     itemProductoId = aProducto.id;

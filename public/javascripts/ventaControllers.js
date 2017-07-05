@@ -17,10 +17,9 @@ angular.module('ventaApp.controllers',[]).controller('VentaListController',funct
     });
     $scope.addVenta=function(){
         $scope.venta.producto = $scope.selectedProducto.id;
-        console.log($scope.venta);
         $scope.venta.$save(function(){
             $state.go('ventas');
-        });
+        }, function(response){alert(response.data.message)});
     }
 
 });

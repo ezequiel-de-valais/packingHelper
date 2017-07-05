@@ -5,8 +5,8 @@ angular.module('insumoApp.controllers',[]).controller('InsumoListController',fun
     $scope.deleteInsumo=function(insumo){
         if(popupService.showPopup('Really delete this?')){
             insumo.$delete(function(){
-                $window.location.href='';
-            });
+                $window.location.href='/insumos/';
+            }, function(response){alert(response.data.message)});
         }
     }
 

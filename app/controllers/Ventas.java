@@ -27,20 +27,21 @@ public class Ventas extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result create() {
         JsonNode json = request().body().asJson();
-        String comprador = json.findPath("comprador").textValue();
-        Long productoId = Long.parseLong(json.findPath("producto").textValue());
-        Integer cantidad = Integer.parseInt(json.findPath("cantidad").textValue());
-        Producto producto = Producto.find.byId(productoId);
-        
-        if(comprador == null || producto == null || cantidad < 1) {
+        try{
+            String comprador = json.findPath("comprador").textValue();
+            Long productoId = Long.parseLong(json.findPath("producto").textValue());
+            Integer cantidad = Integer.parseInt(json.findPath("cantidad").textValue());
+            Producto producto = Producto.find.byId(productoId);
+            Venta venta = new Venta(comprador, cantidad, producto);        
+            Ebean.save(venta);
+            return ok(Json.toJson(venta));
+        }catch(Exception e){       
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
+            result.put("message", e.getMessage());
             return badRequest(result);
         }
         
-        Venta venta = new Venta(comprador, cantidad, producto);
-        Ebean.save(venta);
-        return ok(Json.toJson(venta));
     }
 
     @BodyParser.Of(BodyParser.Json.class)

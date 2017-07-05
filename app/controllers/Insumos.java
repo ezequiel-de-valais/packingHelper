@@ -26,7 +26,7 @@ public class Insumos extends Controller {
     public static Result create() {
         JsonNode json = request().body().asJson();
         String nombre = json.findPath("nombre").textValue();
-        Integer stock = Integer.parseInt(json.findPath("stock").textValue());
+        Integer stock = json.findPath("stock").intValue();
         if(nombre == null) {
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
@@ -51,7 +51,7 @@ public class Insumos extends Controller {
         Insumo insumo = Insumo.find.byId(id);
         JsonNode json = request().body().asJson();
         String nombre = json.findPath("nombre").textValue();
-        Integer stock = Integer.parseInt(json.findPath("stock").textValue());
+        Integer stock = json.findPath("stock").intValue();
         if(nombre == null) {
             ObjectNode result = Json.newObject();
             result.put("status", "KO");
@@ -70,6 +70,7 @@ public class Insumos extends Controller {
         ObjectNode result = Json.newObject();
         if(insumo.id == null || insumo.productos.size() > 0) {
             result.put("status", "KO");
+            result.put("message", "el Insumo no se puede borrar");
             return badRequest(result);
         }
         insumo.delete();

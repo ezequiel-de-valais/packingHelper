@@ -46,9 +46,14 @@ angular.module('productoApp.controllers',[]).controller('ProductoListController'
     };
   
     $scope.addProducto=function(){
-        $scope.producto.$save(function(){
-            $state.go('productos');
-        });
+        if($scope.producto.insumos.length > 0){
+            $scope.producto.$save(function(){
+                $state.go('productos');
+            });
+            
+        } else {
+            alert("Seleccione por lo menos 1 insumo");
+        }
     }
 
 }).controller('ProductoEditController',function($scope,$state,$stateParams,Producto, Insumo){
@@ -92,9 +97,14 @@ angular.module('productoApp.controllers',[]).controller('ProductoListController'
     };
 
     $scope.updateProducto=function(){
-        $scope.producto.$update(function(){
-            $state.go('productos');
-        });
+        
+        if($scope.producto.insumos.length > 0){
+            $scope.producto.$update(function(){
+                $state.go('productos');
+            });
+        }else {
+            alert("Seleccione por lo menos 1 insumo");
+        }
     };
 
 

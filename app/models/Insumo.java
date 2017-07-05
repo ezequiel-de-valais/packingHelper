@@ -1,5 +1,6 @@
 package models;
 
+import com.avaje.ebean.Ebean;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.util.List;
 import javax.persistence.*;
@@ -28,5 +29,10 @@ public class Insumo extends Model {
   public static Finder<Long,Insumo> find = new Finder<Long,Insumo>(
     Long.class, Insumo.class
   ); 
+
+    void reduceStock(Integer aCantidad) {
+        stock -= aCantidad;
+        Ebean.save(this);
+    }
 
 }
