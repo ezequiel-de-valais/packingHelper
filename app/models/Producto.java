@@ -32,6 +32,14 @@ public class Producto extends Model {
         Long.class, Producto.class
     );
 
+    public Producto(String aNombre, String aDescripcion, List<Insumo> aInsumos) throws Exception {
+        validateData(aNombre, aDescripcion, aInsumos);
+        nombre = aNombre;
+        descripcion = aDescripcion;
+        insumos = aInsumos;
+        Ebean.save(this);
+    }
+
     public Integer calculateStock(){
         int stock = insumos.get(0).stock;
         for (Insumo insumo : insumos) {
@@ -46,5 +54,25 @@ public class Producto extends Model {
         for (Insumo insumo : insumos) {
             insumo.reduceStock(aCantidad);
         }
+    }
+
+    private void validateData(String aNombre, String aDescripcion, List<Insumo> aInsumos) throws Exception {
+        if(aNombre == null){
+            throw new Exception("nombre incorrecto");
+        }
+        if(aDescripcion == null || aDescripcion.length() > 500){
+            throw new Exception("descripcion incorrecto");
+        } 
+        if(aInsumos.isEmpty()){
+            throw new Exception("selecciones 1 insumo incorrecta");
+        }
+    }
+
+    public void updateProduct(String aNombre, String aDescripcion, List<Insumo> aInsumos) throws Exception {
+        validateData(aNombre, aDescripcion, aInsumos);
+        nombre = aNombre;
+        descripcion = aDescripcion;
+        insumos = aInsumos;
+        Ebean.save(this);
     }
 }

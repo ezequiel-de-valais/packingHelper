@@ -27,33 +27,20 @@ public class Productos extends Controller {
 
     @BodyParser.Of(BodyParser.Json.class)
     public static Result create() {
-        JsonNode json = request().body().asJson();
-        String nombre = json.findPath("nombre").textValue();
-        String descripcion = json.findPath("descripcion").textValue();
-        ArrayNode insumosNode = (ArrayNode)json.findPath("insumos");
-        ObjectNode result = Json.newObject();
-        Producto producto = new Producto();
-        if(nombre == null) {
+        JsonNode json = request().body().asJson();    
+        ObjectNode result = Json.newObject(); 
+        try{
+            String nombre = json.findPath("nombre").textValue();
+            String descripcion = json.findPath("descripcion").textValue();
+            ArrayNode insumosNode = (ArrayNode)json.findPath("insumos");            
+            List<Insumo> insumos = parseInsumos(insumosNode);
+            Producto producto = new Producto(nombre, descripcion, insumos);
+            return ok(Json.toJson(producto));
+        }catch(Exception e){
             result.put("status", "KO");
-            result.put("message", "Missing parameter");
+            result.put("message", e.getMessage());
             return badRequest(result);
         }
-        producto.nombre = nombre;
-        producto.descripcion = descripcion;
-        
-        for (int i = 0; i < insumosNode.size(); i++) {
-          Long insumoId = insumosNode.get(i).longValue();
-          Insumo insumo = Insumo.find.byId(insumoId);
-          if(insumo.id == null) {
-            result.put("status", "KO");
-            result.put("message", "Missing parameter");
-            return badRequest(result);
-          }
-          producto.insumos.add(insumo);
-        }
-
-        Ebean.save(producto);
-        return ok(Json.toJson(producto));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -65,33 +52,20 @@ public class Productos extends Controller {
     @BodyParser.Of(BodyParser.Json.class)
     public static Result edit(Long id) {
         Producto producto = Producto.find.byId(id);
-        JsonNode json = request().body().asJson();
-        String nombre = json.findPath("nombre").textValue();
-        String descripcion = json.findPath("descripcion").textValue();
-        ArrayNode insumosNode = (ArrayNode)json.findPath("insumos");
-        ObjectNode result = Json.newObject();
-        if(nombre == null) {
+        JsonNode json = request().body().asJson();    
+        ObjectNode result = Json.newObject(); 
+        try{
+            String nombre = json.findPath("nombre").textValue();
+            String descripcion = json.findPath("descripcion").textValue();
+            ArrayNode insumosNode = (ArrayNode)json.findPath("insumos");            
+            List<Insumo> insumos = parseInsumos(insumosNode);
+            producto.updateProduct(nombre, descripcion, insumos);
+            return ok(Json.toJson(producto));
+        }catch(Exception e){
             result.put("status", "KO");
-            result.put("message", "Missing parameter");
+            result.put("message", e.getMessage());
             return badRequest(result);
         }
-        producto.nombre = nombre;
-        producto.descripcion = descripcion;
-        List<Insumo> insumos = new ArrayList();
-        
-        for (int i = 0; i < insumosNode.size(); i++) {
-          Long insumoId = insumosNode.get(i).longValue();
-          Insumo insumo = Insumo.find.byId(insumoId);
-          if(insumo.id == null) {
-            result.put("status", "KO");
-            result.put("message", "Missing parameter");
-            return badRequest(result);
-          }
-          insumos.add(insumo);        
-        }
-        producto.insumos = insumos;
-        Ebean.save(producto);
-        return ok(Json.toJson(producto));
     }
 
     @BodyParser.Of(BodyParser.Json.class)
@@ -105,5 +79,15 @@ public class Productos extends Controller {
         producto.delete();
         result.put("status", "OK");
         return ok(result);
+    }
+
+    private static List<Insumo> parseInsumos(ArrayNode insumosNode) {
+        List<Insumo> insumos= new ArrayList();
+        for (int i = 0; i < insumosNode.size(); i++) {
+            Long insumoId = insumosNode.get(i).longValue();
+            Insumo insumo = Insumo.find.byId(insumoId);
+            insumos.add(insumo);
+        }
+        return insumos;
     }
 }
