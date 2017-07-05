@@ -10,6 +10,7 @@ Aclaraciones vistas
 
 Esto es un poco mas complicado de acomodar puesto que es mi primera vez tanto con play como con angular.
 La app esta separada en 3 vistas de play. En principio queda pendiente refactorizarlas para que reutilicen las estructuras en común(header, css, js, etc). Por otro lado, cada vista instancia una aplicación angular y posiblemente hay cosas que se puedan mejorar. El frontend se podría resolver con una única vista con una sola app angular y que el router se encargue de solucionar el resto.
+Otro detalle a aclarar es que estoy utilizando bootstrap para el estilo por la limitación de tiempos. Me parecio mas importante ponerle enfasis al desarrollo del backend.
 
 Preguntas
 ● Considerar la posibilidad de que varios usuarios estén realizando al mismo tiempo acciones sobre las mismas tablas. Caso de ejemplo: Producto A necesita el Insumo 1 e Insumo 2, en stock quedan uno de cada insumo. ¿Como salvaguardar el caso en que dos vendedores intentan vender al mismo tiempo un Producto A?
