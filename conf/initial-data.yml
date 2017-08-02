@@ -1,0 +1,27 @@
+insumos:
+  - !!models.Insumo &ins1
+    id: 1
+    nombre: madera
+    stock: 11
+  - !!models.Insumo &ins2
+    id: 2
+    nombre: metal
+    stock: 12
+  - !!models.Insumo &ins3
+    id: 3
+    nombre: plastico
+    stock: 13
+productos:
+  - !!models.Producto
+    id: 1
+    nombre: mate
+    descripcion: un mate con bombilla
+    insumos:
+      - *ins1
+      - *ins3
+  - !!models.Producto
+    id: 2
+    nombre: termo
+    descripcion: termo de plastico
+    insumos:
+      - *ins2
