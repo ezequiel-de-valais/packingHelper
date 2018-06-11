@@ -4,21 +4,21 @@
 # --- !Ups
 
 create table insumo (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   nombre                    varchar(255),
   stock                     integer,
   constraint pk_insumo primary key (id))
 ;
 
 create table producto (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   nombre                    varchar(255),
   descripcion               varchar(500),
   constraint pk_producto primary key (id))
 ;
 
 create table venta (
-  id                        bigint not null,
+  id                        bigint auto_increment not null,
   comprador                 varchar(255),
   item_producto_id          bigint,
   item_nombre               varchar(255),
@@ -32,12 +32,6 @@ create table producto_insumo (
   insumo_id                      bigint not null,
   constraint pk_producto_insumo primary key (producto_id, insumo_id))
 ;
-create sequence insumo_seq;
-
-create sequence producto_seq;
-
-create sequence venta_seq;
-
 
 
 
@@ -47,21 +41,15 @@ alter table producto_insumo add constraint fk_producto_insumo_insumo_02 foreign 
 
 # --- !Downs
 
-SET REFERENTIAL_INTEGRITY FALSE;
+SET FOREIGN_KEY_CHECKS=0;
 
-drop table if exists insumo;
+drop table insumo;
 
-drop table if exists producto_insumo;
+drop table producto_insumo;
 
-drop table if exists producto;
+drop table producto;
 
-drop table if exists venta;
+drop table venta;
 
-SET REFERENTIAL_INTEGRITY TRUE;
-
-drop sequence if exists insumo_seq;
-
-drop sequence if exists producto_seq;
-
-drop sequence if exists venta_seq;
+SET FOREIGN_KEY_CHECKS=1;
 
