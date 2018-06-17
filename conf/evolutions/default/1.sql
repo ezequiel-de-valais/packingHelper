@@ -26,6 +26,16 @@ create table venta (
   constraint pk_venta primary key (id))
 ;
 
+create table viajero (
+  id                        bigint auto_increment not null,
+  usuario                   varchar(255),
+  password                  varchar(255),
+  fecha_de_nacimiento       datetime,
+  sexo                      varchar(6),
+  constraint ck_viajero_sexo check (sexo in ('Hombre','Mujer')),
+  constraint pk_viajero primary key (id))
+;
+
 
 create table producto_insumo (
   producto_id                    bigint not null,
@@ -50,6 +60,8 @@ drop table producto_insumo;
 drop table producto;
 
 drop table venta;
+
+drop table viajero;
 
 SET FOREIGN_KEY_CHECKS=1;
 

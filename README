@@ -1,12 +1,21 @@
-setup
+# setup
 
-Instalar java 8
+## Instalar java 8
 https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04
 
-descargar e instalar play for java
+## descargar e instalar play for java
 
 
-instalar mysql server y client
+## instalar mysql server y client
 sudo apt-get install mysql-server
 sudo apt-get install mysql-client
 para la password del usuario root usar qmsroot
+
+
+
+## importar en intellij
+
+borrar .idea, .idea_modules y Project.iml si es que tiene
+por consola correr comando "play" enel proyecto
+dentro de la consola de play correr "eclipse with-source=true"
+abrir intellij e importar proyecto. utilizar la opcion de "importar como eclipse"
