@@ -29,8 +29,17 @@ public class Viajero extends Model {
     @Constraints.Required
     private Sexo sexo;
 
+    @OneToMany(mappedBy = "viajero")
+    private List<Viaje> viajes;
+
     public static Viajero findById(Long id) {
         return FIND.byId(id);
+    }
+
+    public Viaje crearViaje(Date fechaInicio, Date fechaFin, Lugar destino) {
+        Viaje viaje = new Viaje(fechaInicio, fechaFin, 0, this, destino);
+        viaje.save();
+        return viaje;
     }
 
     public enum Sexo {
@@ -82,6 +91,14 @@ public class Viajero extends Model {
 
     public void setSexo(Sexo sexo) {
         this.sexo = sexo;
+    }
+
+    public List<Viaje> getViajes() {
+        return viajes;
+    }
+
+    public void setViajes(List<Viaje> viajes) {
+        this.viajes = viajes;
     }
 
     public Viajero(String usuario, String password, Date fechaDeNacimiento, Sexo sexo) throws Exception {

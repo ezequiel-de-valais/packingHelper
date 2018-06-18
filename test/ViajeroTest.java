@@ -1,3 +1,5 @@
+import models.Lugar;
+import models.Viaje;
 import models.Viajero;
 import org.junit.Test;
 
@@ -18,9 +20,9 @@ public class ViajeroTest extends BaseTest {
 
     @Test
     public void crearViajero() throws Exception {
-        String inputString = "11-11-1992";
+        String fechaNacimientoStr = "11-11-1992";
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaDeNacimiento = dateFormat.parse(inputString);
+        Date fechaDeNacimiento = dateFormat.parse(fechaNacimientoStr);
 
         Viajero viajero = new Viajero("usuario", "password", fechaDeNacimiento, Viajero.Sexo.HOMBRE);
         viajero.save();
@@ -32,6 +34,28 @@ public class ViajeroTest extends BaseTest {
 
         assertThat(searchViajero).isNotNull();
         assertThat(viajero.getUsuario()).isEqualTo("usuario");
+
+    }
+    @Test
+    public void crearViaje() throws Exception {
+        String fechaNacimientoStr = "11-11-1992";
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date fechaDeNacimiento = dateFormat.parse(fechaNacimientoStr);
+        String fechaInicioStr = "11-11-1992";
+        Date fechaInicio = dateFormat.parse(fechaInicioStr);
+        String fechaFinStr = "11-11-1992";
+        Date fechaFin = dateFormat.parse(fechaFinStr);
+
+        Viajero viajero = new Viajero("usuario", "password", fechaDeNacimiento, Viajero.Sexo.HOMBRE);
+        viajero.save();
+
+        Lugar destino = new Lugar("Brasil", 5, 23);
+        destino.save();
+
+        Viaje viaje = viajero.crearViaje(fechaInicio, fechaFin, destino);
+        assertThat(viaje).isNotNull();
+        assertThat(viaje.getViajero().getId()).isEqualTo(viajero.getId());
+
 
 
     }
