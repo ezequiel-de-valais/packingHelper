@@ -15,19 +15,23 @@ import play.data.validation.*;
 public class Viajero extends Model {
 
     @Id
-    public Long id;
+    private Long id;
 
     @Constraints.Required
-    public String usuario;
+    private String usuario;
 
     @Constraints.Required
-    public String password;
+    private String password;
 
     @Constraints.Required
-    public Date fechaDeNacimiento;
+    private Date fechaDeNacimiento;
 
     @Constraints.Required
-    public Sexo sexo;
+    private Sexo sexo;
+
+    public static Viajero findById(Long id) {
+        return FIND.byId(id);
+    }
 
     public enum Sexo {
         @EnumValue("Hombre")
@@ -36,9 +40,49 @@ public class Viajero extends Model {
         MUJER
     }
 
-    public static Finder<Long,Viajero> find = new Finder<Long,Viajero>(
+    public static Finder<Long,Viajero> FIND = new Finder<Long,Viajero>(
     Long.class, Viajero.class
     );
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getFechaDeNacimiento() {
+        return fechaDeNacimiento;
+    }
+
+    public void setFechaDeNacimiento(Date fechaDeNacimiento) {
+        this.fechaDeNacimiento = fechaDeNacimiento;
+    }
+
+    public Sexo getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(Sexo sexo) {
+        this.sexo = sexo;
+    }
 
     public Viajero(String usuario, String password, Date fechaDeNacimiento, Sexo sexo) throws Exception {
         validateData(usuario, password);
@@ -57,5 +101,4 @@ public class Viajero extends Model {
             throw new Exception("password incorrecta, debe tener por lo menos 6 caracteres");
         }
     }
-
 }
