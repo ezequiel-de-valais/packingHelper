@@ -21,13 +21,10 @@ public class ViajeroTest extends BaseTest {
     @Test
     public void crearViajero() throws Exception {
         String fechaNacimientoStr = "11-11-1992";
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaDeNacimiento = dateFormat.parse(fechaNacimientoStr);
+        Date fechaDeNacimiento = TestHelper.getDateFromString(fechaNacimientoStr);
 
         Viajero viajero = new Viajero("usuario", "password", fechaDeNacimiento, Viajero.Sexo.HOMBRE);
         viajero.save();
-
-
         Long id = viajero.getId();
 
         Viajero searchViajero = Viajero.findById(id);
@@ -36,27 +33,20 @@ public class ViajeroTest extends BaseTest {
         assertThat(viajero.getUsuario()).isEqualTo("usuario");
 
     }
+
     @Test
     public void crearViaje() throws Exception {
-        String fechaNacimientoStr = "11-11-1992";
-        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date fechaDeNacimiento = dateFormat.parse(fechaNacimientoStr);
-        String fechaInicioStr = "11-11-1992";
-        Date fechaInicio = dateFormat.parse(fechaInicioStr);
-        String fechaFinStr = "11-11-1992";
-        Date fechaFin = dateFormat.parse(fechaFinStr);
-
+        Date fechaDeNacimiento =  TestHelper.getDateFromString("11-11-1992");
+        Date fechaInicio =  TestHelper.getDateFromString("20-11-2018");
+        Date fechaFin =  TestHelper.getDateFromString("30-11-2019");
         Viajero viajero = new Viajero("usuario", "password", fechaDeNacimiento, Viajero.Sexo.HOMBRE);
         viajero.save();
-
-        Lugar destino = new Lugar("Brasil", 5, 23);
-        destino.save();
+        Lugar destino = TestHelper.getBrasilLugar();
 
         Viaje viaje = viajero.crearViaje(fechaInicio, fechaFin, destino);
+
         assertThat(viaje).isNotNull();
         assertThat(viaje.getViajero().getId()).isEqualTo(viajero.getId());
-
-
 
     }
 
