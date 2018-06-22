@@ -26,6 +26,7 @@ create table item (
   peso_individual           integer,
   de_mano                   tinyint(1) default 0,
   consumible                tinyint(1) default 0,
+  viaje_id                  bigint,
   constraint pk_item primary key (id))
 ;
 
@@ -81,10 +82,12 @@ create table producto_insumo (
 ;
 alter table item add constraint fk_item_elemento_1 foreign key (elemento_id) references elemento (id) on delete restrict on update restrict;
 create index ix_item_elemento_1 on item (elemento_id);
-alter table viaje add constraint fk_viaje_viajero_2 foreign key (viajero_id) references viajero (id) on delete restrict on update restrict;
-create index ix_viaje_viajero_2 on viaje (viajero_id);
-alter table viaje add constraint fk_viaje_destino_3 foreign key (destino_id) references lugar (id) on delete restrict on update restrict;
-create index ix_viaje_destino_3 on viaje (destino_id);
+alter table item add constraint fk_item_viaje_2 foreign key (viaje_id) references viaje (id) on delete restrict on update restrict;
+create index ix_item_viaje_2 on item (viaje_id);
+alter table viaje add constraint fk_viaje_viajero_3 foreign key (viajero_id) references viajero (id) on delete restrict on update restrict;
+create index ix_viaje_viajero_3 on viaje (viajero_id);
+alter table viaje add constraint fk_viaje_destino_4 foreign key (destino_id) references lugar (id) on delete restrict on update restrict;
+create index ix_viaje_destino_4 on viaje (destino_id);
 
 
 

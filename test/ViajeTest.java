@@ -1,3 +1,4 @@
+import models.Item;
 import models.Lugar;
 import models.Viaje;
 import models.Viajero;
@@ -23,13 +24,35 @@ public class ViajeTest extends BaseTest {
         Viajero viajero = TestHelper.getViajero();
 
         Lugar destino = TestHelper.getBrasilLugar();
-        destino.save();
+
         Viaje viaje = new Viaje(fechaInicio,fechaFin,10,viajero, destino);
+        viaje.save();
 
         assertThat(viaje).isNotNull();
         assertThat(viaje.getViajero().getId()).isEqualTo(viajero.getId());
 
     }
+
+
+    @Test
+    public void agregarItemAViaje() throws Exception {
+        Viaje viaje = TestHelper.getViaje();
+        Item remera = TestHelper.getRemeraItem();
+
+        viaje.addItem(remera);
+
+        viaje.update();
+
+        Viaje viajeFounded = Viaje.findById(viaje.getId());
+
+        assertThat(viaje).isNotNull();
+        assertThat(viajeFounded.getItems().size()).isEqualTo(1);
+        assertThat(viajeFounded.getItems().get(0).getId()).isEqualTo(remera.getId());
+        assertThat(viajeFounded.getItems().get(0).getCantidad()).isEqualTo(remera.getCantidad());
+
+    }
+
+
 
 
 }

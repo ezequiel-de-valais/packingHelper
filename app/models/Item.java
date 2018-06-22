@@ -29,6 +29,9 @@ public class Item extends Model {
     @Constraints.Required
     private boolean consumible;
 
+    @ManyToOne
+    private Viaje viaje;
+
     public static Finder<Long, Item> FIND = new Finder<Long, Item>(
             Long.class, Item.class
     );
@@ -93,8 +96,15 @@ public class Item extends Model {
         return elemento.getNombre();
     }
 
+    public Viaje getViaje() {
+        return viaje;
+    }
+
+    public void setViaje(Viaje viaje) {
+        this.viaje = viaje;
+    }
+
     public static Item findById(Long id) {
         return FIND.byId(id);
     }
-
 }

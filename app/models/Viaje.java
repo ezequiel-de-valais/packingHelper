@@ -3,10 +3,10 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity 
 public class Viaje extends Model {
@@ -28,6 +28,9 @@ public class Viaje extends Model {
 
     @ManyToOne
     private Lugar destino;
+
+    @OneToMany(mappedBy = "viaje", cascade= CascadeType.ALL)
+    private List<Item> items = new ArrayList<Item>();
 
 
     public static Finder<Long, Viaje> FIND = new Finder<Long, Viaje>(
@@ -92,5 +95,13 @@ public class Viaje extends Model {
         this.espacioLibreEnVuelta = espacioLibreEnVuelta;
         this.viajero = viajero;
         this.destino = destino;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void addItem(Item remera) {
+        items.add(remera);
     }
 }

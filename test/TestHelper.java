@@ -1,7 +1,4 @@
-import models.Elemento;
-import models.Item;
-import models.Lugar;
-import models.Viajero;
+import models.*;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -48,5 +45,16 @@ public class TestHelper {
         Item remera = new Item(getRemeraElemento(),5);
         remera.save();
         return remera;
+    }
+
+    public static Viaje getViaje() {
+        Date fechaInicio =  TestHelper.getDateFromString("20-11-2018");
+        Date fechaFin =  TestHelper.getDateFromString("30-11-2019");
+        Viajero viajero = TestHelper.getViajero();
+
+        Lugar destino = TestHelper.getBrasilLugar();
+        Viaje viaje = new Viaje(fechaInicio,fechaFin,10,viajero, destino);
+        viaje.save();
+        return viaje;
     }
 }
