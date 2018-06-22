@@ -19,6 +19,16 @@ create table insumo (
   constraint pk_insumo primary key (id))
 ;
 
+create table item (
+  id                        bigint auto_increment not null,
+  elemento_id               bigint,
+  cantidad                  integer,
+  peso_individual           integer,
+  de_mano                   tinyint(1) default 0,
+  consumible                tinyint(1) default 0,
+  constraint pk_item primary key (id))
+;
+
 create table lugar (
   id                        bigint auto_increment not null,
   nombre                    varchar(255),
@@ -69,10 +79,12 @@ create table producto_insumo (
   insumo_id                      bigint not null,
   constraint pk_producto_insumo primary key (producto_id, insumo_id))
 ;
-alter table viaje add constraint fk_viaje_viajero_1 foreign key (viajero_id) references viajero (id) on delete restrict on update restrict;
-create index ix_viaje_viajero_1 on viaje (viajero_id);
-alter table viaje add constraint fk_viaje_destino_2 foreign key (destino_id) references lugar (id) on delete restrict on update restrict;
-create index ix_viaje_destino_2 on viaje (destino_id);
+alter table item add constraint fk_item_elemento_1 foreign key (elemento_id) references elemento (id) on delete restrict on update restrict;
+create index ix_item_elemento_1 on item (elemento_id);
+alter table viaje add constraint fk_viaje_viajero_2 foreign key (viajero_id) references viajero (id) on delete restrict on update restrict;
+create index ix_viaje_viajero_2 on viaje (viajero_id);
+alter table viaje add constraint fk_viaje_destino_3 foreign key (destino_id) references lugar (id) on delete restrict on update restrict;
+create index ix_viaje_destino_3 on viaje (destino_id);
 
 
 
@@ -89,6 +101,8 @@ drop table elemento;
 drop table insumo;
 
 drop table producto_insumo;
+
+drop table item;
 
 drop table lugar;
 

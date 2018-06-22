@@ -1,4 +1,5 @@
 import models.Elemento;
+import models.Item;
 import models.Lugar;
 import models.Viajero;
 
@@ -39,6 +40,12 @@ public class TestHelper {
 
     public static Elemento getRemeraElemento() {
         Elemento remera = new Elemento("Remera", 300, false, false);
+        remera.save();
+        return remera;
+    }
+
+    public static Item getRemeraItem() {
+        Item remera = new Item(getRemeraElemento(),5);
         remera.save();
         return remera;
     }
